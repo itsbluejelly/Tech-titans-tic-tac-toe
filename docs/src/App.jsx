@@ -1,10 +1,11 @@
-import Home from './Home'
+import React from 'react'
+import ButtonUI from './ButtonUI'
 function App() {
 
   return (
-    <section>
-      <Home />
-    </section>
+    <div>
+      <ButtonUI/>
+    </div>
   )
 }
 
