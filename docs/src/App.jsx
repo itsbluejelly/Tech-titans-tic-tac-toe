@@ -2,6 +2,7 @@ import React from "react"
 import NameFooter from "./components/NameFooter"
 import CreditFooter from "./components/CreditsFooter"
 import Button from "./components/Button"
+import ProgressBar from "./components/ProgressBar"
 
 export default function App(){
     return(
@@ -12,10 +13,13 @@ export default function App(){
             {/* THE GAME CONTAINER WHICH HOLDS THE GRID OF CELLS AND THE SELECTION BOX IS PLACED HERE */}
             <div className="dark:bg-[#2B0040] h-[95vh] rounded-[50px] w-[95%] relative bg-[limegreen] flex justify-center items-center flex-col">
                 {/* THE DIV SHOWING THE CURRENT PLAYER */}
+                <ProgressBar/>
+
+                {/* THE SELECTION MENU IS CONTAINED HERE */}
                 
 
                 {/* THE CONTAINER FOR GRID IS CONTAINED HERE */}
-                <div className="grid grid-flow-row grid-cols-3 gap-[10px]">
+                <div className="grid grid-flow-row grid-cols-3 gap-[10px] transition-all duration-500">
                     <div 
                         className="flex justify-center items-center w-[100px] h-[100px] dark:bg-[#43115B] rounded-[10px] dark:text-[#DCBF3F] bg-[#59E391] text-cyan-700 text-xl font-[700] transition-all duration-500 hover:shadow-popup">1
                     </div>
