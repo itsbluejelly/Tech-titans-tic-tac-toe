@@ -3,6 +3,8 @@ import NameFooter from "./components/NameFooter"
 import CreditFooter from "./components/CreditsFooter"
 import Button from "./components/Button"
 import ProgressBar from "./components/ProgressBar"
+import HomePage from "./components/HomePage"
+import PopupText from "./components/PopupText"
 
 export default function App(){
     return(
@@ -16,7 +18,7 @@ export default function App(){
                 <ProgressBar/>
 
                 {/* THE SELECTION MENU IS CONTAINED HERE */}
-                
+                <HomePage/>  
 
                 {/* THE CONTAINER FOR GRID IS CONTAINED HERE */}
                 <div className="grid grid-flow-row grid-cols-3 gap-[10px] transition-all duration-500">
@@ -51,6 +53,9 @@ export default function App(){
 
                 {/* THE BUTTON IS LOCATED HERE TO START OR RESET GAME*/}
                 <Button/>
+
+                {/* THE DISPLAY OF A WINNER SHOWN, OR THE PLAYER */}
+                <PopupText/>
 
                 {/* THE GAME NAME BOTTOM RIGHT FOOTER IS PLACED HERE */}
                 <footer>
