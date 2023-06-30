@@ -85,10 +85,6 @@ export default function App(){
     }
     // A FUNCTION TO UPDATE THE POSITION OF A CELL IN THE OPTIONS ARRAY
     function updateCell(index, id) {
-        if(options[index] !== '' || !hasStarted){
-            return
-        }
-
         setOptions(prevOptions => {
             const newArray = [...prevOptions];
             newArray[index] = currentPlayer;
