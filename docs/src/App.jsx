@@ -8,6 +8,11 @@ import PopupText from "./components/PopupText"
 import GameCell from "./components/GameCell"
 import {nanoid} from 'nanoid'
 
+
+
+
+
+
 export default function App(){
     // CRETING A VARIABLE BOOLEAN TO CHECK IF GAME HAS BEGAN
     const [hasStarted, setHasStarted] = React.useState(false)
@@ -125,13 +130,42 @@ export default function App(){
         />
     ))
 
+<<<<<<< Updated upstream
+=======
+                if(cellA === '' || cellB === '' || cellC === ''){
+                    continue
+                }
+
+                if(cellA === cellB && cellB === cellC){
+                    setWonGame(true)
+                    break
+                }
+            }
+            
+            
+            if(wonGame){
+                setInnerPopupText(`${currentPlayer} Won`)
+                setHasStarted(false)
+                
+            }
+            
+            if(!options.includes('')){
+                setWonGame('draw')
+                setHasStarted(false)
+                setInnerPopupText("It's a draw")
+            }
+        }   
+, [gameCellInfoArray])
+    
+>>>>>>> Stashed changes
     return(
         // THE WHOLE GAME IS IN THIS CONTAINER BELOW
-        <main 
+        <main
             className="min-h-[100vh] bg-[#59E391] dark:bg-[#5A1E76] font-['Fredoka'] transition-all duration-500 flex justify-center items-center "
         >
             {/* THE GAME CONTAINER WHICH HOLDS THE GRID OF CELLS AND THE SELECTION BOX IS PLACED HERE */}
             <div className="dark:bg-[#2B0040] h-[95vh] rounded-[50px] w-[95%] relative bg-[limegreen] flex justify-center items-center flex-col">
+                
                 {/* THE DIV SHOWING THE CURRENT PLAYER */}
                 {hasStarted && <ProgressBar
                     styles={currentPlayer ?
