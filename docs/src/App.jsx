@@ -1,6 +1,7 @@
 import React from "react"
 import NameFooter from "./components/NameFooter"
 import CreditFooter from "./components/CreditsFooter"
+import Button from "./components/Button"
 
 export default function App(){
     return(
@@ -10,6 +11,9 @@ export default function App(){
         >
             {/* THE GAME CONTAINER WHICH HOLDS THE GRID OF CELLS AND THE SELECTION BOX IS PLACED HERE */}
             <div className="dark:bg-[#2B0040] h-[95vh] rounded-[50px] w-[95%] relative bg-[limegreen] flex justify-center items-center flex-col">
+                {/* THE DIV SHOWING THE CURRENT PLAYER */}
+                
+
                 {/* THE CONTAINER FOR GRID IS CONTAINED HERE */}
                 <div className="grid grid-flow-row grid-cols-3 gap-[10px]">
                     <div 
@@ -42,12 +46,8 @@ export default function App(){
                 </div>
 
                 {/* THE BUTTON IS LOCATED HERE TO START OR RESET GAME*/}
-                <button
-                    className="bg-white mt-[20px] p-[10px] w-[250px] rounded-[20px] text-lg transition-all hover:shadow-popup dark:bg-slate-600 dark:text-white"
-                >Start Game
-                </button>
+                <Button/>
 
-                
                 {/* THE GAME NAME BOTTOM RIGHT FOOTER IS PLACED HERE */}
                 <footer>
                     {/* THIS IS THE NAME FOOTER */}
