@@ -1,7 +1,10 @@
+import Home from './Home'
 function App() {
 
   return (
-    <h1 className="text-3xl font-bold underline text-center text-red-400 font-mono">Hello world!</h1> 
+    <section>
+      <Home />
+    </section>
   )
 }
 
