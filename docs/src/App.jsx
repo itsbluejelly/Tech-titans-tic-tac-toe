@@ -3,24 +3,21 @@ import React from 'react'
 import Cells from './Cells'
 
 import ButtonUI from './ButtonUI'
-function App() {
+
+import Home from './Home'
 
 
-function App() {
-  
+export default function App() {
   return (
 
     <section>
+        <Home />
         <Cells />
+        <ButtonUI/>
         <Footer />
-      </section>
+    </section>
   ) 
-
-    <div>
-      <ButtonUI/>
-    </div>
-  )
 
 }
 
-export default App
+
