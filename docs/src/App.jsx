@@ -13,34 +13,41 @@ export default function App(){
                 {/* THE CONTAINER FOR GRID IS CONTAINED HERE */}
                 <div className="grid grid-flow-row grid-cols-3 gap-[10px]">
                     <div 
-                        className="flex justify-center items-center w-[100px] h-[100px] dark:bg-[#43115B] rounded-[10px] dark:text-[#DCBF3F] bg-[#59E391] text-cyan-700 text-xl font-[700]">1
+                        className="flex justify-center items-center w-[100px] h-[100px] dark:bg-[#43115B] rounded-[10px] dark:text-[#DCBF3F] bg-[#59E391] text-cyan-700 text-xl font-[700] transition-all duration-500 hover:shadow-popup">1
                     </div>
                     <div 
-                        className="flex justify-center items-center w-[100px] h-[100px] dark:bg-[#43115B] rounded-[10px] dark:text-[#DCBF3F] bg-[#59E391] text-cyan-700 text-xl font-[700]">1
+                        className="flex justify-center items-center w-[100px] h-[100px] dark:bg-[#43115B] rounded-[10px] dark:text-[#DCBF3F] bg-[#59E391] text-cyan-700 text-xl font-[700] transition-all duration-500 hover:shadow-popup">1
                     </div>
                     <div 
-                        className="flex justify-center items-center w-[100px] h-[100px] dark:bg-[#43115B] rounded-[10px] dark:text-[#DCBF3F] bg-[#59E391] text-cyan-700 text-xl font-[700]">1
+                        className="flex justify-center items-center w-[100px] h-[100px] dark:bg-[#43115B] rounded-[10px] dark:text-[#DCBF3F] bg-[#59E391] text-cyan-700 text-xl font-[700] transition-all duration-500 hover:shadow-popup">1
                     </div>
                     <div 
-                        className="flex justify-center items-center w-[100px] h-[100px] dark:bg-[#43115B] rounded-[10px] dark:text-[#DCBF3F] bg-[#59E391] text-cyan-700 text-xl font-[700]">1
+                        className="flex justify-center items-center w-[100px] h-[100px] dark:bg-[#43115B] rounded-[10px] dark:text-[#DCBF3F] bg-[#59E391] text-cyan-700 text-xl font-[700] transition-all duration-500 hover:shadow-popup">1
                     </div>
                     <div 
-                        className="flex justify-center items-center w-[100px] h-[100px] dark:bg-[#43115B] rounded-[10px] dark:text-[#DCBF3F] bg-[#59E391] text-cyan-700 text-xl font-[700]">1
+                        className="flex justify-center items-center w-[100px] h-[100px] dark:bg-[#43115B] rounded-[10px] dark:text-[#DCBF3F] bg-[#59E391] text-cyan-700 text-xl font-[700] transition-all duration-500 hover:shadow-popup">1
                     </div>
                     <div 
-                        className="flex justify-center items-center w-[100px] h-[100px] dark:bg-[#43115B] rounded-[10px] dark:text-[#DCBF3F] bg-[#59E391] text-cyan-700 text-xl font-[700]">1
+                        className="flex justify-center items-center w-[100px] h-[100px] dark:bg-[#43115B] rounded-[10px] dark:text-[#DCBF3F] bg-[#59E391] text-cyan-700 text-xl font-[700] transition-all duration-500 hover:shadow-popup">1
                     </div>
                     <div 
-                        className="flex justify-center items-center w-[100px] h-[100px] dark:bg-[#43115B] rounded-[10px] dark:text-[#DCBF3F] bg-[#59E391] text-cyan-700 text-xl font-[700]">1
+                        className="flex justify-center items-center w-[100px] h-[100px] dark:bg-[#43115B] rounded-[10px] dark:text-[#DCBF3F] bg-[#59E391] text-cyan-700 text-xl font-[700] transition-all duration-500 hover:shadow-popup">1
                     </div>
                     <div 
-                        className="flex justify-center items-center w-[100px] h-[100px] dark:bg-[#43115B] rounded-[10px] dark:text-[#DCBF3F] bg-[#59E391] text-cyan-700 text-xl font-[700]">1
+                        className="flex justify-center items-center w-[100px] h-[100px] dark:bg-[#43115B] rounded-[10px] dark:text-[#DCBF3F] bg-[#59E391] text-cyan-700 text-xl font-[700] transition-all duration-500 hover:shadow-popup">1
                     </div>
                     <div 
-                        className="flex justify-center items-center w-[100px] h-[100px] dark:bg-[#43115B] rounded-[10px] dark:text-[#DCBF3F] bg-[#59E391] text-cyan-700 text-xl font-[700]">1
+                        className="flex justify-center items-center w-[100px] h-[100px] dark:bg-[#43115B] rounded-[10px] dark:text-[#DCBF3F] bg-[#59E391] text-cyan-700 text-xl font-[700] transition-all duration-500 hover:shadow-popup">1
                     </div>
-                    
                 </div>
+
+                {/* THE BUTTON IS LOCATED HERE TO START OR RESET GAME*/}
+                <button
+                    className="bg-white mt-[20px] p-[10px] w-[250px] rounded-[20px] text-lg transition-all hover:shadow-popup dark:bg-slate-600 dark:text-white"
+                >Start Game
+                </button>
+
+                
                 {/* THE GAME NAME BOTTOM RIGHT FOOTER IS PLACED HERE */}
                 <footer>
                     {/* THIS IS THE NAME FOOTER */}
