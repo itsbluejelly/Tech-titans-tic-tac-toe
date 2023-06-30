@@ -1,7 +1,11 @@
+import React from 'react'
+import ButtonUI from './ButtonUI'
 function App() {
 
   return (
-    <h1 className="text-3xl font-bold underline text-center text-red-400 font-mono">Hello world!</h1> 
+    <div>
+      <ButtonUI/>
+    </div>
   )
 }
 
