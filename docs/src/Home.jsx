@@ -13,11 +13,11 @@ export default function Home() {
                 
                 <div className="flex justify-around">
                     
-                    <button className="playerX bg-gradient-to-br from-orange-400 to-orange-200 mt-2 rounded-lg cursor-pointer border-white border-2" id="player-x-button">PLAYER X</button>
-                    <button className="playerO  bg-gradient-to-br from-orange-400 to-orange-200 mt-2 rounded-lg cursor-pointer border-white border-2" id="player-o-button">PLAYER O</button>
+                    <button className="playerX bg-[#EAE0D5] mt-2 rounded-lg cursor-pointer border-white border-2" id="player-x-button">PLAYER X</button>
+                    <button className="playerO  bg-[#17BEBB] mt-2 rounded-lg cursor-pointer border-white border-2" id="player-o-button">PLAYER O</button>
                 </div>
                 
-                <button className=" bg-gradient-to-br from-orange-400 to-orange-200 mt-2 rounded-lg cursor-pointer border-white border-2 w-[50%] mx-auto mb-3" id="play-game-button">PLAY GAME</button>
+                <button className=" bg-[#1C0F13] mt-2 rounded-lg cursor-pointer border-white border-2 w-[50%] mx-auto mb-3 text-white" id="play-game-button ">PLAY GAME</button>
             </div>
         </div>
 
