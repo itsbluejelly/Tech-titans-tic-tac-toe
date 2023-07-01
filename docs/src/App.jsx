@@ -72,9 +72,10 @@ export default function App(){
         setInnerButtonText("Start Game")
         setHasStarted(false)
         setOptions(['','','','','','','','',''])
-        setWonGame(false)
+        setWonGame(true)
         setGameCellInfoArray(generateGameCellInfoArray())
         setInnerPopupText('')
+        setCurrentPlayer('')
     }
 
     // FUNCTION TO CHANGE PLAYER
@@ -101,33 +102,33 @@ export default function App(){
     }
     // A FUNCTION TO UPDATE THE POSITION OF A CELL IN THE OPTIONS ARRAY
     function updateCell(index, id) {
-        if(options[index] !== '' || !hasStarted){
+        if(options[index] === '' && hasStarted){
+            setOptions(prevOptions => {
+                const newArray = [...prevOptions];
+                newArray[index] = currentPlayer;
+                return newArray;
+            });
+            
+            renameCell(id)
+            checkWinner() 
+        }else{
             return
         }
-        
-        setOptions(prevOptions => {
-            const newArray = [...prevOptions];
-            newArray[index] = currentPlayer;
-            return newArray;
-        });
-        
-        renameCell(id);
-        changePlayer();
     }
 
     // FUNCTION TO RENAME A CELL WHEN CLICKED
     function renameCell(id) {
         setGameCellInfoArray(prevArray => {
-          return prevArray.map(info => {
-            if (info.id === id) {
-              return {
-                ...info,
-                innerCellText: currentPlayer
-              };
-            } else {
-              return info;
-            }
-          });
+            return prevArray.map(info => {
+                if (info.id === id) {
+                return {
+                    ...info,
+                    innerCellText: currentPlayer
+                }
+                }else{
+                return info;
+                }
+            });
         });
     }
       
@@ -144,36 +145,32 @@ export default function App(){
     ))
     
     // FUNCTION TO CHECK WINNER EVERYTIME THE CELL IS CLICKED
-    React.useEffect(function checkWinner(){
-            for(let i = 0; i<winningConditions.length; i++){
-                const winningCondition = winningConditions[i]
-                const cellA = options[winningCondition[0]]
-                const cellB = options[winningCondition[1]]
-                const cellC = options[winningCondition[2]]
+    function checkWinner(){
+        for(let i = 0; i<winningConditions.length; i++){
+            const winningCondition = winningConditions[i]
+            const cellA = options[winningCondition[0]]
+            const cellB = options[winningCondition[1]]
+            const cellC = options[winningCondition[2]]
 
-                if(cellA === '' || cellB === '' || cellC === ''){
-                    continue
-                }
+            if(cellA === '' || cellB === '' || cellC === ''){
+                continue
+            }
 
-                if(cellA === cellB && cellB === cellC){
-                    setWonGame(true)
-                    break
-                }
-            }
+            if(cellA === cellB && cellB === cellC){
+                setWonGame(true)
+                break
+            } 
+        }
             
-            
-            if(wonGame){
-                setInnerPopupText(`${currentPlayer} Won`)
-                setHasStarted(false)
-            }
-            
-            if(!options.includes('')){
-                setWonGame('draw')
-                setHasStarted(false)
-                setInnerPopupText("It's a draw")
-            }
-        }   
-, [gameCellInfoArray])
+        if(wonGame){
+            setInnerPopupText(`${currentPlayer} Won`)
+        }else if(!options.includes('')){
+            setWonGame(true)
+            setInnerPopupText("It's a draw")
+        }else{
+            changePlayer()
+        }
+    }
     
     return(
         // THE WHOLE GAME IS IN THIS CONTAINER BELOW
@@ -223,5 +220,5 @@ export default function App(){
                 </footer>
             </div>
         </main>
-    )
-}
+        )
+    }
