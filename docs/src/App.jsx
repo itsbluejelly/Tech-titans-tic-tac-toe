@@ -28,6 +28,17 @@ export default function App(){
     const [gameCellInfoArray, setGameCellInfoArray] = React.useState(generateGameCellInfoArray())
     // CREATING A LIST OF OPTIONS TO HOLD THE INDEX OF GAME CELLS WHILE CHECKING WINNING CONDITIONS
     const [options, setOptions] = React.useState(['','','','','','','','',''])
+    // CREATING A CONSTANT OF WINNING CONDITIONS
+    const winningConditions = [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,4,8],
+        [2,4,6],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8]
+    ]
     // CREATING A CONST STYLES OBJECT
     const styles={
         gamePlay:{
@@ -63,9 +74,14 @@ export default function App(){
     }
     // FUNCTION TO END GAME
     function endGame(){
-        setHasStarted(false)
         setInnerButtonText("Start Game")
+        setHasStarted(false)
+        setOptions(['','','','','','','','',''])
+        setWonGame(false)
+        setGameCellInfoArray(generateGameCellInfoArray())
+        setInnerPopupText('')
     }
+
     // FUNCTION TO CHANGE PLAYER
     function changePlayer(){
         currentPlayer ==='X' ? 
@@ -93,7 +109,7 @@ export default function App(){
         if(options[index] !== '' || !hasStarted){
             return
         }
-
+        
         setOptions(prevOptions => {
             const newArray = [...prevOptions];
             newArray[index] = currentPlayer;
@@ -103,21 +119,23 @@ export default function App(){
         renameCell(id);
         changePlayer();
     }
+
     // FUNCTION TO RENAME A CELL WHEN CLICKED
     function renameCell(id) {
         setGameCellInfoArray(prevArray => {
           return prevArray.map(info => {
             if (info.id === id) {
-              return ({
+              return {
                 ...info,
                 innerCellText: currentPlayer
-              });
+              };
             } else {
               return info;
             }
           });
         });
-    } 
+    }
+      
 
     // A VARIABLE CONTAINING A FUNCTION TO GENERATE A LIST OF GAME CELLS
     const gameCells = gameCellInfoArray.map(info => (
@@ -130,34 +148,6 @@ export default function App(){
         />
     ))
 
-<<<<<<< Updated upstream
-=======
-                if(cellA === '' || cellB === '' || cellC === ''){
-                    continue
-                }
-
-                if(cellA === cellB && cellB === cellC){
-                    setWonGame(true)
-                    break
-                }
-            }
-            
-            
-            if(wonGame){
-                setInnerPopupText(`${currentPlayer} Won`)
-                setHasStarted(false)
-                
-            }
-            
-            if(!options.includes('')){
-                setWonGame('draw')
-                setHasStarted(false)
-                setInnerPopupText("It's a draw")
-            }
-        }   
-, [gameCellInfoArray])
-    
->>>>>>> Stashed changes
     return(
         // THE WHOLE GAME IS IN THIS CONTAINER BELOW
         <main
