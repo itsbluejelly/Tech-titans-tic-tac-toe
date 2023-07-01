@@ -22,7 +22,7 @@ export default function App(){
     // CREATING A LIST OF OBJECT WITH INFO ABOUT EACH GAME CELL
     const [gameCellInfoArray, setGameCellInfoArray] = React.useState(generateGameCellInfoArray())
     // CREATING A LIST OF OPTIONS TO HOLD THE INDEX OF GAME CELLS WHILE CHECKING WINNING CONDITIONS
-    const [options, setOptions] = React.useState(['','','','','','','','',''])
+    const [options, setOptions] = React.useState(['', '', '', '', '', '', '', '', ''])
     // CREATING A CONSTANT OF WINNING CONDITIONS
     const winningConditions = [
         [0,1,2],
@@ -66,23 +66,26 @@ export default function App(){
         setHasStarted(true)
         setInnerButtonText("Restart Game")
         setInnerPopupText('')
+        setWonGame(false)
     }
     // FUNCTION TO END GAME
-    function endGame(){
-        setInnerButtonText("Start Game")
-        setHasStarted(false)
-        setOptions(['','','','','','','','',''])
+    function endGame() {
+        setInnerButtonText("Start Game");
+        setHasStarted(false);
+        setOptions(['', '', '', '', '', '', '', '', '']);
+        setGameCellInfoArray(() =>generateGameCellInfoArray());
+        setInnerPopupText('');
+        setCurrentPlayer('');
         setWonGame(true)
-        setGameCellInfoArray(generateGameCellInfoArray())
-        setInnerPopupText('')
-        setCurrentPlayer('')
-    }
+      }
 
     // FUNCTION TO CHANGE PLAYER
     function changePlayer(){
-        currentPlayer ==='X' ? 
+        if(!wonGame && hasStarted){
+            currentPlayer ==='X' ? 
             setCurrentPlayer('O'):
             setCurrentPlayer('X')
+        }
     }
     // FUNCTION TO GENERATE A LIST OF INFOS
     function generateGameCellInfoArray(){
@@ -102,7 +105,7 @@ export default function App(){
     }
     // A FUNCTION TO UPDATE THE POSITION OF A CELL IN THE OPTIONS ARRAY
     function updateCell(index, id) {
-        if(options[index] === '' && hasStarted){
+        if(options[index] === '' && hasStarted && !wonGame){
             setOptions(prevOptions => {
                 const newArray = [...prevOptions];
                 newArray[index] = currentPlayer;
@@ -110,7 +113,7 @@ export default function App(){
             });
             
             renameCell(id)
-            checkWinner() 
+            checkWinner()
         }else{
             return
         }
@@ -145,32 +148,34 @@ export default function App(){
     ))
     
     // FUNCTION TO CHECK WINNER EVERYTIME THE CELL IS CLICKED
-    function checkWinner(){
-        for(let i = 0; i<winningConditions.length; i++){
-            const winningCondition = winningConditions[i]
-            const cellA = options[winningCondition[0]]
-            const cellB = options[winningCondition[1]]
-            const cellC = options[winningCondition[2]]
-
-            if(cellA === '' || cellB === '' || cellC === ''){
-                continue
+    function checkWinner() {
+        for (let i = 0; i < winningConditions.length; i++) {
+            const winningCondition = winningConditions[i];
+            const cellA = options[winningCondition[0]];
+            const cellB = options[winningCondition[1]];
+            const cellC = options[winningCondition[2]];
+        
+            if (cellA === '' || cellB === '' || cellC === '') {
+                continue;
             }
-
-            if(cellA === cellB && cellB === cellC){
+        
+            if (cellA === cellB && cellB === cellC) {
                 setWonGame(true)
                 break
-            } 
+            }
         }
-            
+
         if(wonGame){
-            setInnerPopupText(`${currentPlayer} Won`)
-        }else if(!options.includes('')){
+            setHasStarted(false)
+            setInnerPopupText(`{currentPlayer} won`)
+        }else if (!options.includes('')) {
             setWonGame(true)
             setInnerPopupText("It's a draw")
+            setHasStarted(false)
         }else{
-            changePlayer()
+        changePlayer();
         }
-    }
+    } 
     
     return(
         // THE WHOLE GAME IS IN THIS CONTAINER BELOW
