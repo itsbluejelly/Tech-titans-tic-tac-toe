@@ -1,7 +1,7 @@
 export default function NameFooter(props){
     return(
         <div
-            className="absolute bottom-[10px] left-[15px] font-['Fredoka'] text-5xl font-[600] leading-[0.8]"
+            className="absolute bottom-[10px] left-[15px] font-['Fredoka'] text-4xl font-[600] leading-[0.8]"
         >
             <p
                 className="footer-leading"
