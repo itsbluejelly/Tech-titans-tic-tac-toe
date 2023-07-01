@@ -1,7 +1,7 @@
 import React from "react";
 import Sound from 'react-sound';
 import Gametheme from './gametheme.mp3'
-const Sound=(
+const PlaySound=(
     handleSongLoading,
     handleSongPlaying,
     handleSongFinishedPlaying
@@ -21,4 +21,4 @@ const Sound=(
     );
   }
 
-export default Sound
+export default PlaySound
