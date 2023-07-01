@@ -1,10 +1,11 @@
 export default function ProgressBar(props){
     return(
         <div
-            className="bg-white mb-[20px] w-[300px] rounded-[20px] text-sm dark:bg-slate-600"
+            className="mb-[20px] w-[300px] rounded-[20px] text-sm progress-bar-container"
+            style={props.themeStyles.progressBarContainer}
         >
             <div 
-                className="flex justify-around transition-all duration-500 text-cyan-700 dark:text-[#DCBF3F]"
+                className="flex justify-around transition-all duration-500"
             >
                 <p>Player X</p>
                 <p>Draw</p>
@@ -13,10 +14,11 @@ export default function ProgressBar(props){
 
             <div
                 className="flex transition-all duration-500"
-                style={props.styles}
+                style={props.gameplayStyles}
             >
                 <div 
-                    className="dark:bg-[#5A1E76] w-[100px] h-[10px] rounded-lg bg-[#59E391]"
+                    className="w-[100px] h-[10px] rounded-lg progress-slider"
+                    style={props.themeStyles.progressSlider}
                 ></div>
             </div>
         </div>
