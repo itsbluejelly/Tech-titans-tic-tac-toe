@@ -1,11 +1,12 @@
 import React from "react"
 import NameFooter from "./components/NameFooter"
-import CreditFooter from "./components/CreditsFooter"
+import CreditsFooter from "./components/CreditsFooter"
 import Button from "./components/Button"
 import ProgressBar from "./components/ProgressBar"
 import HomePage from "./components/HomePage"
 import PopupText from "./components/PopupText"
 import GameCell from "./components/GameCell"
+import ToggleButton from "./components/ToggleButton"
 import {nanoid} from 'nanoid'
 
 export default function App(){
@@ -23,6 +24,8 @@ export default function App(){
     const [gameCellInfoArray, setGameCellInfoArray] = React.useState(generateGameCellInfoArray())
     // CREATING A LIST OF OPTIONS TO HOLD THE INDEX OF GAME CELLS WHILE CHECKING WINNING CONDITIONS
     const [options, setOptions] = React.useState(['', '', '', '', '', '', '', '', ''])
+    // CREATING A VARIABLE TO TRACK DARK MODE
+    const [darkMode, setDarkMode] = React.useState(false)
     // CREATING A CONSTANT OF WINNING CONDITIONS
     const winningConditions = [
         [0,1,2],
@@ -36,6 +39,147 @@ export default function App(){
     ]
     // CREATING A CONST STYLES OBJECT
     const styles={
+        dark:{
+            main:{
+                backgroundColor: "#5A1E76"
+            },
+            gameContainer:{
+                backgroundColor: "#2B0040"
+            },
+            progressBar:{
+                progressBarContainer:{
+                    backgroundColor: "rgb(71 85 105)",
+                    color: "#DCBF3F"
+                },
+                progressSlider:{
+                    backgroundColor: "#5A1E76"
+                }
+            },
+
+            homePage:{
+                homePageHeading:{
+                    color: "white"
+                },
+                homePagePlayerX:{
+                    color: "#72CFF9"
+                },
+                homePagePlayerO:{
+                    color: "#DCBF3F"
+                }
+            },
+
+            gameCell:{
+                backgroundColor: "#43115B",
+                color: "#DCBF3F"
+            },
+            button:{
+                backgroundColor: "rgb(71 85 105)",
+                color: "white"
+            },
+
+            toggleButton:{
+                toggleLight:{
+                    color: '#DCBF3F'
+                },
+                toggleSlider:{
+                    backgroundColor: "#5A1E76",
+                    justifyContent: "flex-end"
+                },
+                toggler:{
+                    backgroundColor: "#5A1E76"
+                },
+                toggleDark:{
+                    color: "#72CFF9"
+                }
+            },
+            popupText:{
+                backgroundColor: "#48D2FE"
+            },
+            nameFooter:{
+                footerLeading:{
+                    color: "#DCBF3F"
+                },
+                footerMiddle:{
+                    color: "#72CFF9"
+                }
+            },
+            creditsFooter:{
+                backgroundColor: "#975FB1",
+                color: "#2B0040"
+            }
+        },
+
+        light:{
+            main:{
+                backgroundColor: "#59E391"
+            },
+            gameContainer:{
+                backgroundColor: "limegreen"
+            },
+            progressBar:{
+                progressBarContainer:{
+                    backgroundColor: "white",
+                    color: "rgb(14 116 144)"
+                },
+                progressSlider:{
+                    backgroundColor: "#59E391"
+                }
+            },
+
+            homePage:{
+                homePageHeading:{
+                    color: "black"
+                },
+                homePagePlayerX:{
+                    color: "#ffff00f5"
+                },
+                homePagePlayerO:{
+                    color: "rgb(8 145 178)"
+                }
+            },
+
+            gameCell:{
+                backgroundColor: "#59E391",
+                color: "rgb(14 116 144)"
+            },
+            button:{
+                backgroundColor: "white",
+                color: "black"
+            },
+
+            toggleButton:{
+                toggleLight:{
+                    color: "#ffff00f5"
+                },
+                toggleSlider:{
+                    backgroundColor: "#59E391",
+                    justifyContent: "flex-start"
+                },
+                toggler:{
+                    backgroundColor: "#59E391"
+                },
+                toggleDark:{
+                    color: "rgb(8 145 178)"
+                }
+            },
+            popupText:{
+                backgroundColor: "rgb(234 179 8)"
+            },
+
+            nameFooter:{
+                footerLeading:{
+                    color: "rgb(8 145 178)"
+                },
+                footerMiddle:{
+                    color: "#ffff00f5"
+                }
+            },
+            creditsFooter:{
+                backgroundColor: "lightgreen",
+                color: "green"
+            }
+        },
+
         gamePlay:{
             progressBar:{
                 playerX:{
@@ -144,6 +288,7 @@ export default function App(){
             innerCellText={info.innerCellText}
             cellIndex={info.cellIndex}
             handleClick={() => updateCell(info.cellIndex, info.id)}
+            styles={darkMode ? styles.dark.gameCell : styles.light.gameCell}
         />
     ))
     
@@ -180,24 +325,30 @@ export default function App(){
     return(
         // THE WHOLE GAME IS IN THIS CONTAINER BELOW
         <main 
-            className="min-h-[100vh] bg-[#59E391] dark:bg-[#5A1E76] font-['Fredoka'] transition-all duration-500 flex justify-center items-center "
+            className="min-h-[100vh] font-['Fredoka'] transition-all duration-500 flex justify-center items-center"
+            style={darkMode ? styles.dark.main : styles.light.main}
         >
             {/* THE GAME CONTAINER WHICH HOLDS THE GRID OF CELLS AND THE SELECTION BOX IS PLACED HERE */}
-            <div className="dark:bg-[#2B0040] h-[95vh] rounded-[50px] w-[95%] relative bg-[limegreen] flex justify-center items-center flex-col">
+            <div 
+                className="h-[95vh] rounded-[50px] w-[95%] relative flex justify-center items-center flex-col game-container"
+                style={darkMode ? styles.dark.gameContainer : styles.light.gameContainer}
+            >
                 {/* THE DIV SHOWING THE CURRENT PLAYER */}
                 {hasStarted && <ProgressBar
-                    styles={currentPlayer ?
+                    gameplayStyles={currentPlayer ?
                         currentPlayer === 'X' ?
                             styles.gamePlay.progressBar.playerX :
                             styles.gamePlay.progressBar.playerO
                         :
                         styles.gamePlay.progressBar.draw}
+                    themeStyles={darkMode ? styles.dark.progressBar : styles.light.progressBar}
                 />}
 
                 {/* THE SELECTION MENU IS CONTAINED HERE */}
                 {!hasStarted && <HomePage
                     choosePlayerX={choosePlayerX}
                     choosePlayerO={choosePlayerO}
+                    styles={darkMode ? styles.dark.homePage : styles.light.homePage}
                 />}  
 
                 {/* THE CONTAINER FOR GRID IS CONTAINED HERE */}
@@ -209,19 +360,31 @@ export default function App(){
                 <Button
                     handleClick={hasStarted ? endGame : startGame}
                     innerButtonText={innerButtonText}
+                    styles={darkMode ? styles.dark.button : styles.light.button}
+                />
+
+                {/* THE TOGGLE BUTTON RESPONSIBLE FOR CHANGING THEMES IS LOCATED HERE */}
+                <ToggleButton
+                    handleClick={() => setDarkMode(prevMode => !prevMode)}
+                    styles={darkMode ? styles.dark.toggleButton : styles.light.toggleButton}
                 />
 
                 {/* THE DISPLAY OF A WINNER SHOWN, OR THE PLAYER */}
                 {innerPopupText && <PopupText
                     innerPopupText = {innerPopupText}
+                    styles={darkMode ? styles.dark.popupText : styles.light.popupText}
                 />}
 
                 {/* THE GAME NAME BOTTOM RIGHT FOOTER IS PLACED HERE */}
                 <footer>
                     {/* THIS IS THE NAME FOOTER */}
-                    <NameFooter/>
+                    <NameFooter
+                        styles={darkMode ? styles.dark.nameFooter : styles.light.nameFooter}
+                    />
                     {/* THE CREDITS FOOTER IS PLACED HERE */}
-                    <CreditFooter/>
+                    <CreditsFooter
+                        styles={darkMode ? styles.dark.creditsFooter : styles.light.creditsFooter}
+                    />
                 </footer>
             </div>
         </main>
