@@ -1,7 +1,9 @@
 export default function ToggleButton(props){
     return (
         <div 
+
             className="absolute top-[1rem] flex text-sm font-[500] right-[20px]"
+
         >
             <p
                 className="toggle-light"
@@ -10,7 +12,9 @@ export default function ToggleButton(props){
             </p>
             
             <div
+
                 className="flex w-[60px] h-[20px] my-auto mx-[10px] rounded-[20px] justify-start dark:justify-end toggle-slider transition-all duration-1000 "
+
                 style={props.styles.toggleSlider}
             >
                 <div
