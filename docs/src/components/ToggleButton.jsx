@@ -3,7 +3,6 @@ export default function ToggleButton(props){
         <div 
 
             className="absolute top-[1rem] flex text-sm font-[500] right-[20px]"
-
         >
             <p
                 className="toggle-light"
