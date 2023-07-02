@@ -214,21 +214,23 @@ export default function App(){
     }
     // FUNCTION TO END GAME
     function endGame() {
+        setWonGame(true); // Update wonGame state to true
         setInnerButtonText("Start Game");
         setHasStarted(false);
         setOptions(['', '', '', '', '', '', '', '', '']);
-        setGameCellInfoArray(() =>generateGameCellInfoArray());
-        setInnerPopupText('');
-        setCurrentPlayer('');
-        setWonGame(true)
-      }
-
+        setGameCellInfoArray(generateGameCellInfoArray());
+        setInnerPopupText('')
+        setCurrentPlayer('')
+      }      
+      
     // FUNCTION TO CHANGE PLAYER
     function changePlayer(){
         if(!wonGame && hasStarted){
             currentPlayer ==='X' ? 
             setCurrentPlayer('O'):
             setCurrentPlayer('X')
+        }else{
+            return
         }
     }
     // FUNCTION TO GENERATE A LIST OF INFOS
@@ -249,38 +251,68 @@ export default function App(){
     }
     // A FUNCTION TO UPDATE THE POSITION OF A CELL IN THE OPTIONS ARRAY
     function updateCell(index, id) {
-        if(options[index] === '' && hasStarted && !wonGame){
-            setOptions(prevOptions => {
-                const newArray = [...prevOptions];
-                newArray[index] = currentPlayer;
-                return newArray;
-            });
-            
-            renameCell(id)
-            checkWinner()
-        }else{
-            return
+        if (options[index] === '' && !wonGame && hasStarted) {
+          setOptions(prevOptions => {
+            const newArray = [...prevOptions];
+            newArray[index] = currentPlayer;
+            return newArray;
+          });
+      
+          renameCell(id)
+        } else {
+          return;
         }
-    }
-
+      }
+      
     // FUNCTION TO RENAME A CELL WHEN CLICKED
     function renameCell(id) {
-        setGameCellInfoArray(prevArray => {
+        if (!wonGame && hasStarted){
+          setGameCellInfoArray(prevArray => {
             return prevArray.map(info => {
-                if (info.id === id) {
+              if (info.id === id) {
                 return {
-                    ...info,
-                    innerCellText: currentPlayer
-                }
-                }else{
+                  ...info,
+                  innerCellText: currentPlayer
+                };
+              } else {
                 return info;
-                }
+              }
             });
-        });
+          });
+        } else {
+          return;
+        }
     }
+    
+    // FUNCTION TO CHECK WINNER
+    function checkWinner() {
+        for (let i = 0; i < winningConditions.length; i++) {
+          const [a, b, c] = winningConditions[i];
+          if (
+            options[a] === currentPlayer &&
+            options[b] === currentPlayer &&
+            options[c] === currentPlayer
+          ) {
+            setWonGame(true);
+            setInnerPopupText(currentPlayer ? `${currentPlayer} won` : '');
+            return;
+          }
+        }
       
+        if(!options.includes('')){
+            setWonGame(true)
+            setCurrentPlayer('draw')
+            setInnerPopupText(currentPlayer ? "It's a draw" : '')
+            return
+        }
 
-    // A VARIABLE CONTAINING A FUNCTION TO GENERATE A LIST OF GAME CELLS
+        changePlayer()
+      }
+
+        // A USE EFFECT CLEANUP FUNCTION TO CHECK FOR THE WINNER ANYTIME THE GAME CELL INFO CHANGES
+      React.useEffect(() => checkWinner, [options, currentPlayer, hasStarted])
+      
+      // A VARIABLE CONTAINING A FUNCTION TO GENERATE A LIST OF GAME CELLS
     const gameCells = gameCellInfoArray.map(info => (
         <GameCell
             key={info.id}
@@ -291,37 +323,7 @@ export default function App(){
             styles={darkMode ? styles.dark.gameCell : styles.light.gameCell}
         />
     ))
-    
-    // FUNCTION TO CHECK WINNER EVERYTIME THE CELL IS CLICKED
-    function checkWinner() {
-        for (let i = 0; i < winningConditions.length; i++) {
-            const winningCondition = winningConditions[i];
-            const cellA = options[winningCondition[0]];
-            const cellB = options[winningCondition[1]];
-            const cellC = options[winningCondition[2]];
-        
-            if (cellA === '' || cellB === '' || cellC === '') {
-                continue;
-            }
-        
-            if (cellA === cellB && cellB === cellC) {
-                setWonGame(true)
-                break
-            }
-        }
-
-        if(wonGame){
-            setHasStarted(false)
-            setInnerPopupText(`{currentPlayer} won`)
-        }else if (!options.includes('')) {
-            setWonGame(true)
-            setInnerPopupText("It's a draw")
-            setHasStarted(false)
-        }else{
-        changePlayer();
-        }
-    } 
-    
+      
     return(
         // THE WHOLE GAME IS IN THIS CONTAINER BELOW
         <main 
@@ -352,7 +354,7 @@ export default function App(){
                 />}  
 
                 {/* THE CONTAINER FOR GRID IS CONTAINED HERE */}
-                {hasStarted && <div className="grid grid-flow-row grid-cols-3 gap-[10px] transition-all duration-500">
+                {hasStarted  && <div className="grid grid-flow-row grid-cols-3 gap-[10px] transition-all duration-500">
                     {gameCells}
                 </div>}
 
