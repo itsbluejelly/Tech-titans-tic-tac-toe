@@ -4,7 +4,7 @@ export default function RegisterForm(props){
             <h1
                 style={props.styles.formHeading}
                 className="text-2xl text-center hover:text-3xl transition-all duration-[800ms] hover:cursor-pointer"
-            >Create An Account</h1>
+            >{props.headingText}</h1>
 
             <div
                 className="flex gap-[20px] flex-col md:flex-row"
@@ -48,11 +48,13 @@ export default function RegisterForm(props){
             <p
                 style={props.styles.formHeading}
                 className="text-center mx-[10px]"
-            >If you <span>don't </span>have an account, consider 
+            >If you
+            <span> {props.spanText[0]} </span>have an account, consider 
                 <span
                     style={props.styles.spans}
                     className="transition-all duration-500 hover:underline cursor-pointer hover:text-xl"
-                > signing </span> 
+                    onClick={props.handleClick}
+                > {props.spanText[1]} </span> 
             in</p>
         </div>
     )

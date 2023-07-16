@@ -30,6 +30,8 @@ export default function App(){
     const [darkMode, setDarkMode] = React.useState(false)
     // CREATING A BOOLEAN TO DETECT IF ONE HAS FINISHED REGISTERING AN ACCOUNT
     const [hasRegistered, setHasRegistered] = React.useState(false)
+    // CREATING A BOOLEAN TO DETECT IF ONE HAS AN ACCOUNT OR NOT
+    const [hasAccount, setHasAccount] = React.useState(false)
     // CREATING A CONSTANT OF WINNING CONDITIONS
     const winningConditions = [
         [0,1,2],
@@ -379,6 +381,9 @@ export default function App(){
                 {/* THE REGISTER FORM IS FOUND HERE */}
                 {!hasRegistered && <RegisterForm
                     styles={darkMode ? styles.dark.RegisterForm : styles.light.RegisterForm}
+                    headingText={hasAccount ? "Welcome, log in!" : "Hello, Create An Account!"}
+                    spanText={hasAccount ? ["don't", "signing"] : ["do", "logging"]}
+                    handleClick={() => setHasAccount(prevState => !prevState)}
                 />}
 
                 {/* THE SELECTION MENU IS CONTAINED HERE */}
@@ -403,7 +408,11 @@ export default function App(){
                         styles={darkMode ? styles.dark.button : styles.light.button}
                     />
                         :
-                    null
+                    <Button
+                        handleClick={() => setHasRegistered(true)}
+                        innerButtonText={hasAccount ? "Log In" : "Sign Up"}
+                        styles={darkMode ? styles.dark.button : styles.light.button}
+                    />
                 }
 
                 {/* THE TOGGLE BUTTON RESPONSIBLE FOR CHANGING THEMES IS LOCATED HERE */}
