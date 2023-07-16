@@ -9,6 +9,7 @@ import PopupText from "./components/PopupText"
 import GameCell from "./components/GameCell"
 import ToggleButton from "./components/ToggleButton"
 import RegisterForm from './components/RegisterForm'
+import ErrorPopup from './components/ErrorPopup'
 import {nanoid} from 'nanoid'
 
 export default function App(){
@@ -32,6 +33,15 @@ export default function App(){
     const [hasRegistered, setHasRegistered] = React.useState(false)
     // CREATING A BOOLEAN TO DETECT IF ONE HAS AN ACCOUNT OR NOT
     const [hasAccount, setHasAccount] = React.useState(false)
+    // CREATING A BOOLEAN TO SHOW IF THERE IS AN ERROR
+    const [hasError, setHasError] = React.useState(false)
+    
+    // CREATING A VARIABLE TO STORE FORM DATA VALUES
+    const [formData, setFormData] = React.useState({
+        username: "",
+        password: ""
+    })
+   
     // CREATING A CONSTANT OF WINNING CONDITIONS
     const winningConditions = [
         [0,1,2],
@@ -227,6 +237,14 @@ export default function App(){
         }
     }
     
+    //FUNCTION TO CHANGE FORM DATA VALUES
+    function updateFormData(e){
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            [e.target.name] : e.target.value
+        }))
+    }
+    
     // FUNCTION TO DETERMINE PLAYER X
     function choosePlayerX(){
         setCurrentPlayer('X')
@@ -341,8 +359,8 @@ export default function App(){
         changePlayer()
       }
 
-        // A USE EFFECT CLEANUP FUNCTION TO CHECK FOR THE WINNER ANYTIME THE GAME CELL INFO CHANGES
-      React.useEffect(() => checkWinner, [currentPlayer, options, hasStarted])
+    // A USE EFFECT CLEANUP FUNCTION TO CHECK FOR THE WINNER ANYTIME THE GAME CELL INFO CHANGES
+    React.useEffect(() => checkWinner, [currentPlayer, options, hasStarted])
       
       // A VARIABLE CONTAINING A FUNCTION TO GENERATE A LIST OF GAME CELLS
     const gameCells = gameCellInfoArray.map(info => (
@@ -359,7 +377,7 @@ export default function App(){
     return(
         // THE WHOLE GAME IS IN THIS CONTAINER BELOW
         <main 
-            className="min-h-[100vh] font-['Fredoka'] transition-all duration-500 flex justify-center items-center"
+            className="min-h-[100vh] font-['Fredoka'] transition-all duration-500 flex justify-center items-center relative"
             style={darkMode ? styles.dark.main : styles.light.main}
         >
             {/* THE GAME CONTAINER WHICH HOLDS THE GRID OF CELLS AND THE SELECTION BOX AND THE FORM IS PLACED HERE */}
@@ -367,6 +385,11 @@ export default function App(){
                 className="h-[95vh] rounded-[50px] w-[95%] relative flex justify-center items-center flex-col game-container"
                 style={darkMode ? styles.dark.gameContainer : styles.light.gameContainer}
             >
+                {/* THE ERROR POPUP MENU IS FOUND HERE */}
+                {!hasError && <ErrorPopup
+                    handleClick={() => setHasError(false)}
+                />}
+
                 {/* THE DIV SHOWING THE CURRENT PLAYER */}
                 {hasStarted && <ProgressBar
                     gameplayStyles={currentPlayer ?
@@ -384,6 +407,8 @@ export default function App(){
                     headingText={hasAccount ? "Welcome, log in!" : "Hello, Create An Account!"}
                     spanText={hasAccount ? ["don't", "signing"] : ["do", "logging"]}
                     handleClick={() => setHasAccount(prevState => !prevState)}
+                    handleChange={(e) => updateFormData(e)}
+                    formData={formData}
                 />}
 
                 {/* THE SELECTION MENU IS CONTAINED HERE */}

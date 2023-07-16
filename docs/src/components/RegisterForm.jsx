@@ -19,8 +19,11 @@ export default function RegisterForm(props){
                     <input 
                         type="text" 
                         name="username"
+                        value={props.formData.username}
+                        onChange={props.handleChange}
                         required
                         style={props.styles.inputFields}
+                        placeholder="your unique name"
                         className="rounded-lg pl-[10px] outline-none shadow-input
                         md:max-h-[30px]
                         md:m-y-auto mt-[10px] flex-grow-0"
@@ -37,6 +40,9 @@ export default function RegisterForm(props){
                     <input 
                         type="password" 
                         name="password"
+                        placeholder="your secure password"
+                        value={props.formData.password}
+                        onChange={props.handleChange}
                         required
                         style={props.styles.inputFields}
                         className="rounded-lg pl-[10px] outline-none shadow-input md:max-h-[30px]
