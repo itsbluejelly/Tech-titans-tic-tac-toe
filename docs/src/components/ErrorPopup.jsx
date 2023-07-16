@@ -5,7 +5,7 @@ export default function ErrorPopup(props){
         >
             <p
                 className="text-[whitesmoke] font-[500] text-2xl text-center "
-            >An Error Occured</p>
+            >{props.errorText}</p>
             <button
                 className="bg-[red] text-[whitesmoke] font-semibold p-[15px] rounded-xl shadow-button-popup transition-all hover:text-2xl duration-500 border-black active:border-[5px] hover:bg-green-500"
                 onClick={props.handleClick}

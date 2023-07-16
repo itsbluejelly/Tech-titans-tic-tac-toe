@@ -13,10 +13,8 @@ import ErrorPopup from './components/ErrorPopup'
 import {nanoid} from 'nanoid'
 
 export default function App(){
-    // CRETING A VARIABLE BOOLEAN TO CHECK IF GAME HAS BEGAN
-    const [hasStarted, setHasStarted] = React.useState(false)
-    // CREATING A VARIABLE BOOLEAN TO DETERMINE WINNER
-    const [wonGame, setWonGame] = React.useState(false)
+    // CREATING A VARIABLE TO STORE THE ERROR MESSAGE
+    const [errorText, setErrorText] = React.useState('')
     // CREATING A VARIABLE BOOLEAN TO DETERMINE CURRENT PLAYER
     const [currentPlayer, setCurrentPlayer] = React.useState('')
     // CREATING A VARIABLE TO SET POPUP TEXT
@@ -35,6 +33,10 @@ export default function App(){
     const [hasAccount, setHasAccount] = React.useState(false)
     // CREATING A BOOLEAN TO SHOW IF THERE IS AN ERROR
     const [hasError, setHasError] = React.useState(false)
+    // CRETING A VARIABLE BOOLEAN TO CHECK IF GAME HAS BEGAN
+    const [hasStarted, setHasStarted] = React.useState(false)
+    // CREATING A VARIABLE BOOLEAN TO DETERMINE WINNER
+    const [wonGame, setWonGame] = React.useState(false)
     
     // CREATING A VARIABLE TO STORE FORM DATA VALUES
     const [formData, setFormData] = React.useState({
@@ -244,6 +246,51 @@ export default function App(){
             [e.target.name] : e.target.value
         }))
     }
+
+    // FUNCTION TO CONFIRM REGISTRATION
+    async function confirmRegistration(){
+        if(hasAccount){
+            try{
+                const response = await fetch('http://localhost:5500/login', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        username: formData.username,
+                        password: formData.password
+                    })
+                })
+
+                if(!response.ok){
+                    throw new Error("Nope, cannot access the account, perhaps try signing up or using the right password")
+                }else{
+                    setHasRegistered(true)
+                }
+            }catch(error){
+                setHasError(true)
+                setErrorText(`${error.message}`)
+                console.log(`${error.name}: ${error.message}`)
+            }
+        }else{
+            try{
+                const response = await fetch('http://localhost:5500/signup', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        username: formData.username,
+                        password: formData.password
+                    })
+                })
+
+                if(!response.ok){
+                    throw new Error("Sorry, this account already exists")
+                }else{
+                    setHasRegistered(true)
+                }
+            }catch(error){
+                setHasError(true)
+                setErrorText(`${error.message}`)
+                console.log(`${error.name}: ${error.message}`)
+            }
+        }
+    }
     
     // FUNCTION TO DETERMINE PLAYER X
     function choosePlayerX(){
@@ -388,6 +435,7 @@ export default function App(){
                 {/* THE ERROR POPUP MENU IS FOUND HERE */}
                 {hasError && <ErrorPopup
                     handleClick={() => setHasError(false)}
+                    errorText={errorText}
                 />}
 
                 {/* THE DIV SHOWING THE CURRENT PLAYER */}
@@ -434,7 +482,7 @@ export default function App(){
                     />
                         :
                     <Button
-                        handleClick={() => setHasRegistered(true)}
+                        handleClick={confirmRegistration}
                         innerButtonText={hasAccount ? "Log In" : "Sign Up"}
                         styles={darkMode ? styles.dark.button : styles.light.button}
                     />
