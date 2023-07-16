@@ -1,3 +1,4 @@
+// IMPORTING COMPONENTS AND NECESSARY LIBRARIES
 import React from "react"
 import NameFooter from "./components/NameFooter"
 import CreditsFooter from "./components/CreditsFooter"
@@ -7,6 +8,7 @@ import HomePage from "./components/HomePage"
 import PopupText from "./components/PopupText"
 import GameCell from "./components/GameCell"
 import ToggleButton from "./components/ToggleButton"
+import RegisterForm from './components/RegisterForm'
 import {nanoid} from 'nanoid'
 
 export default function App(){
@@ -26,6 +28,8 @@ export default function App(){
     const [options, setOptions] = React.useState(['', '', '', '', '', '', '', '', ''])
     // CREATING A VARIABLE TO TRACK DARK MODE
     const [darkMode, setDarkMode] = React.useState(false)
+    // CREATING A BOOLEAN TO DETECT IF ONE HAS FINISHED REGISTERING AN ACCOUNT
+    const [hasRegistered, setHasRegistered] = React.useState(false)
     // CREATING A CONSTANT OF WINNING CONDITIONS
     const winningConditions = [
         [0,1,2],
@@ -53,6 +57,19 @@ export default function App(){
                 },
                 progressSlider:{
                     backgroundColor: "#5A1E76"
+                }
+            },
+
+            RegisterForm:{
+                formHeading:{
+                    color: "white"
+                },
+                inputFields:{
+                    backgroundColor:"rgb(71 85 105)",
+                    color: "white"
+                },
+                spans:{
+                    color: "#72CFF9"
                 }
             },
 
@@ -123,6 +140,19 @@ export default function App(){
                 },
                 progressSlider:{
                     backgroundColor: "#59E391"
+                }
+            },
+
+            RegisterForm:{
+                formHeading:{
+                    color: "black"
+                },
+                inputFields:{
+                    backgroundColor:"white",
+                    color: "black"
+                },
+                spans:{
+                    color: "#ffff00f5"
                 }
             },
 
@@ -310,7 +340,7 @@ export default function App(){
       }
 
         // A USE EFFECT CLEANUP FUNCTION TO CHECK FOR THE WINNER ANYTIME THE GAME CELL INFO CHANGES
-      React.useEffect(() => checkWinner, [options, currentPlayer, hasStarted])
+      React.useEffect(() => checkWinner, [currentPlayer, options, hasStarted])
       
       // A VARIABLE CONTAINING A FUNCTION TO GENERATE A LIST OF GAME CELLS
     const gameCells = gameCellInfoArray.map(info => (
@@ -330,7 +360,7 @@ export default function App(){
             className="min-h-[100vh] font-['Fredoka'] transition-all duration-500 flex justify-center items-center"
             style={darkMode ? styles.dark.main : styles.light.main}
         >
-            {/* THE GAME CONTAINER WHICH HOLDS THE GRID OF CELLS AND THE SELECTION BOX IS PLACED HERE */}
+            {/* THE GAME CONTAINER WHICH HOLDS THE GRID OF CELLS AND THE SELECTION BOX AND THE FORM IS PLACED HERE */}
             <div 
                 className="h-[95vh] rounded-[50px] w-[95%] relative flex justify-center items-center flex-col game-container"
                 style={darkMode ? styles.dark.gameContainer : styles.light.gameContainer}
@@ -346,8 +376,13 @@ export default function App(){
                     themeStyles={darkMode ? styles.dark.progressBar : styles.light.progressBar}
                 />}
 
+                {/* THE REGISTER FORM IS FOUND HERE */}
+                {!hasRegistered && <RegisterForm
+                    styles={darkMode ? styles.dark.RegisterForm : styles.light.RegisterForm}
+                />}
+
                 {/* THE SELECTION MENU IS CONTAINED HERE */}
-                {!hasStarted && <HomePage
+                {!hasStarted && hasRegistered && <HomePage
                     choosePlayerX={choosePlayerX}
                     choosePlayerO={choosePlayerO}
                     styles={darkMode ? styles.dark.homePage : styles.light.homePage}
@@ -359,11 +394,17 @@ export default function App(){
                 </div>}
 
                 {/* THE BUTTON IS LOCATED HERE TO START OR RESET GAME*/}
-                <Button
-                    handleClick={hasStarted ? endGame : startGame}
-                    innerButtonText={innerButtonText}
-                    styles={darkMode ? styles.dark.button : styles.light.button}
-                />
+                {
+                    hasRegistered 
+                        ?
+                    <Button
+                        handleClick={hasStarted ? endGame : startGame}
+                        innerButtonText={innerButtonText}
+                        styles={darkMode ? styles.dark.button : styles.light.button}
+                    />
+                        :
+                    null
+                }
 
                 {/* THE TOGGLE BUTTON RESPONSIBLE FOR CHANGING THEMES IS LOCATED HERE */}
                 <ToggleButton
