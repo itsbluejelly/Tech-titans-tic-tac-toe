@@ -1,6 +1,8 @@
+// IMPORTING NECESSARY ITEMS
 const mongoose = require('mongoose')
 const eventLogger = require('../middleware/eventLogger')
 
+// A FUNCTION THAT ALLOWS US TO CONNECT TO DATABASE
 async function connectDB(){
     try{
         await mongoose.connect(process.env.DATABASE_URI, {
