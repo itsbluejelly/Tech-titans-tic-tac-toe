@@ -386,7 +386,7 @@ export default function App(){
                 style={darkMode ? styles.dark.gameContainer : styles.light.gameContainer}
             >
                 {/* THE ERROR POPUP MENU IS FOUND HERE */}
-                {!hasError && <ErrorPopup
+                {hasError && <ErrorPopup
                     handleClick={() => setHasError(false)}
                 />}
 
