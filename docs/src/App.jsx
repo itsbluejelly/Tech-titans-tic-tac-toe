@@ -251,7 +251,7 @@ export default function App(){
     async function confirmRegistration(){
         if(hasAccount){
             try{
-                const response = await fetch('http://localhost:5500/login', {
+                const response = await fetch('http://localhost:5500/login/', {
                     method: 'POST',
                     body: JSON.stringify({
                         username: formData.username,
@@ -271,7 +271,7 @@ export default function App(){
             }
         }else{
             try{
-                const response = await fetch('http://localhost:5500/signup', {
+                const response = await fetch('http://localhost:5500/signup/', {
                     method: 'POST',
                     body: JSON.stringify({
                         username: formData.username,
